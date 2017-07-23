@@ -19,6 +19,14 @@ import AddChannel from "./components/AddChannel";
 const networkInterface = createNetworkInterface({
   uri: "http://localhost:4000/graphql"
 });
+
+networkInterface.use([
+  {
+    applyMiddleware(req, next) {
+      setTimeout(next, 1000);
+    }
+  }
+]);
 const schema = makeExecutableSchema({ typeDefs });
 
 //mock
@@ -54,7 +62,10 @@ const ChannelsList = ({ data: { loading, error, channels } }) => {
     <div className="channelsList">
       <AddChannel />
       {channels.map(ch =>
-        <div key={ch.id}>
+        <div
+          key={ch.id}
+          className={"channel " + (ch.id < 0 ? "optimistic" : "")}
+        >
           {ch.name}
         </div>
       )}
