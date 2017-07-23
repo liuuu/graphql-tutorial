@@ -10,6 +10,10 @@ type Channel {
 type Query {
    channels: [Channel]    
 }
+
+type Mutation {
+  addChannel(name: String!): Channel
+}
 `;
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 // addMockFunctionsToSchema({ schema }); this is mocking, 我觉得mocking the resolver function

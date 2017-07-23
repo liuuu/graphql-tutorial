@@ -8,6 +8,7 @@ import cors from "cors";
 
 const PORT = 4000;
 const server = express();
+server.use("*", cors({ origin: "http://localhost:3000" })); //integrate with frontend 这个顺序竟然有关系
 
 server.use(
   "/graphql",
@@ -23,7 +24,7 @@ server.use(
     endpointURL: "/graphql"
   })
 );
-server.use("*", cors({ origin: "http://localhost:3000" }));
+
 server.listen(PORT, () =>
   console.log(
     `GraphQL Server is now running on http://localhost:${PORT}/graphiql`

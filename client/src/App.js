@@ -2,22 +2,35 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import { ApolloClient, gql, graphql, ApolloProvider } from "react-apollo";
+import {
+  ApolloClient,
+  gql,
+  graphql,
+  ApolloProvider,
+  createNetworkInterface
+} from "react-apollo";
 
 import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools";
 import { mockNetworkInterfaceWithSchema } from "apollo-test-utils";
 import { typeDefs } from "./schema";
 
-const schema = makeExecutableSchema({ typeDefs });
-addMockFunctionsToSchema({ schema });
+import AddChannel from "./components/AddChannel";
 
-const mockNetworkInterface = mockNetworkInterfaceWithSchema({ schema });
+const networkInterface = createNetworkInterface({
+  uri: "http://localhost:4000/graphql"
+});
+const schema = makeExecutableSchema({ typeDefs });
+
+//mock
+// addMockFunctionsToSchema({ schema });
+// const mockNetworkInterface = mockNetworkInterfaceWithSchema({ schema });
 
 const client = new ApolloClient({
-  networkInterface: mockNetworkInterface
+  // networkInterface: mockNetworkInterface
+  networkInterface
 });
 
-const channelsListQuery = gql`
+export const channelsListQuery = gql`
   query ChannelsListQuery {
     channels {
       id
@@ -38,13 +51,14 @@ const ChannelsList = ({ data: { loading, error, channels } }) => {
     );
   }
   return (
-    <ul>
+    <div className="channelsList">
+      <AddChannel />
       {channels.map(ch =>
-        <li key={ch.id}>
+        <div key={ch.id}>
           {ch.name}
-        </li>
+        </div>
       )}
-    </ul>
+    </div>
   );
 };
 
