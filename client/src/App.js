@@ -14,7 +14,12 @@ import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools";
 import { mockNetworkInterfaceWithSchema } from "apollo-test-utils";
 import { typeDefs } from "./schema";
 
-import AddChannel from "./components/AddChannel";
+// import AddChannel from "./components/AddChannel";
+import ChannelsListWithData from "./components/ChannelsListWithData";
+// import NotFound from "./components/NotFound";
+// import ChannelDetails from "./components/ChannelDetails";
+
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 const networkInterface = createNetworkInterface({
   uri: "http://localhost:4000/graphql"
@@ -38,54 +43,22 @@ const client = new ApolloClient({
   networkInterface
 });
 
-export const channelsListQuery = gql`
-  query ChannelsListQuery {
-    channels {
-      id
-      name
-    }
-  }
-`;
-
-const ChannelsList = ({ data: { loading, error, channels } }) => {
-  if (loading) {
-    return <p>Loading</p>;
-  }
-  if (error) {
-    return (
-      <p>
-        {error.message}
-      </p>
-    );
-  }
-  return (
-    <div className="channelsList">
-      <AddChannel />
-      {channels.map(ch =>
-        <div
-          key={ch.id}
-          className={"channel " + (ch.id < 0 ? "optimistic" : "")}
-        >
-          {ch.name}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const ChannelsListWithData = graphql(channelsListQuery)(ChannelsList);
-
 class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to Apollo</h2>
+        <BrowserRouter>
+          <div className="App">
+            <Link to="/" className="navbar">
+              React + GraphQL Tutorial
+            </Link>
+            <Switch>
+              <Route exact path="/" component={ChannelsListWithData} />
+              {/* <Route path="/channel/:channelId" component={ChannelDetail} />
+              <Route component={NotFound} /> */}
+            </Switch>
           </div>
-          <ChannelsListWithData />
-        </div>
+        </BrowserRouter>
       </ApolloProvider>
     );
   }

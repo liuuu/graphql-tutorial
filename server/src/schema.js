@@ -1,14 +1,21 @@
 // src/schema.js
 import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools";
 import { resolvers } from "./resolvers";
+
 const typeDefs = `
 type Channel {
    id: ID!                
    name: String
 }
 
+type Message {
+  id: ID!
+  text: String
+}
+
 type Query {
-   channels: [Channel]    
+   channels: [Channel]
+   channel(id: ID!): channel    
 }
 
 type Mutation {

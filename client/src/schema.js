@@ -1,5 +1,5 @@
 export const typeDefs = `
-type Channel{
+type Channel {
   id: ID!
   name: String
 }
