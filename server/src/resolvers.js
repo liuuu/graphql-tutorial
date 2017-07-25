@@ -22,6 +22,7 @@ const channels = [
     }]
   }
 ];
+// ?
 let nextId = 3;
 let nextMessgaeId = 5;
 
