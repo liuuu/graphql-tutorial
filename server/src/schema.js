@@ -6,6 +6,7 @@ const typeDefs = `
 type Channel {
    id: ID!                
    name: String
+   messages: [Message]!
 }
 
 type Message {
@@ -13,15 +14,23 @@ type Message {
   text: String
 }
 
+input MessageInput {
+  channelId: ID!
+  text: String
+}
+
 type Query {
    channels: [Channel]
-   channel(id: ID!): channel    
+   channel(id: ID!): Channel   
 }
 
 type Mutation {
   addChannel(name: String!): Channel
-}
+  addMessage(message: MessageInput!): Message
+ }
 `;
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 // addMockFunctionsToSchema({ schema }); this is mocking, 我觉得mocking the resolver function
 export { schema };
+
+
