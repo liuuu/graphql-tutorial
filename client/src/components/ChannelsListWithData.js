@@ -28,13 +28,14 @@ const ChannelsList = ({ data: { loading, error, channels } }) => {
     <div className="channelsList">
       <AddChannel />
       {channels.map(ch =>
-        <Link
+        <div
           key={ch.id}
-          className={"channel " + (ch.id < 0 ? "optimistic" : "")}
-          to={ch.id < 0 ? "" : `channel/${ch.id}`}
+          className={"channel " + (ch.id < 0 ? 'optimistic' : '')}
         >
+        <Link to={ch.id < 0 ? "" : `channel/${ch.id}`}>
           {ch.name}
         </Link>
+        </div>
       )}
     </div>
   );
@@ -43,3 +44,4 @@ const ChannelsList = ({ data: { loading, error, channels } }) => {
 const ChannelsListWithData = graphql(channelsListQuery)(ChannelsList);
 
 export default ChannelsListWithData;
+  

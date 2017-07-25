@@ -9,7 +9,7 @@ const AddChannel = ({ mutate }) => {
       evt.persist();
 
       mutate({
-        variables: { name: evt.target.value },
+        variables: { name: evt.target.value }, //args.name
         optimisticResponse: {
           addChannel: {
             name: evt.target.value,

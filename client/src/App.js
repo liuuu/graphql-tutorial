@@ -16,8 +16,8 @@ import { typeDefs } from "./schema";
 
 // import AddChannel from "./components/AddChannel";
 import ChannelsListWithData from "./components/ChannelsListWithData";
-// import NotFound from "./components/NotFound";
-// import ChannelDetails from "./components/ChannelDetails";
+import NotFound from "./components/NotFound";
+import ChannelDetails from "./components/ChannelDetails";
 
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
@@ -54,8 +54,8 @@ class App extends Component {
             </Link>
             <Switch>
               <Route exact path="/" component={ChannelsListWithData} />
-              {/* <Route path="/channel/:channelId" component={ChannelDetail} />
-              <Route component={NotFound} /> */}
+              <Route path="/channel/:channelId" component={ChannelDetails} /> 
+              <Route component={NotFound} /> 
             </Switch>
           </div>
         </BrowserRouter>
